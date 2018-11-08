@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{D3B4F6D8-409F-4C04-ABFC-63BC535D5BF7}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KeyLog_Classic/Program.cs">
+    <Files>
+      <File FileName="KeyLog_Classic/Program.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.KeyLog__Classic PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
+</Properties>
