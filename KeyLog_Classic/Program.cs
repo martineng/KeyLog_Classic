@@ -10,7 +10,7 @@ namespace KeyLog_Classic
         public static void Main(string[] args)
         {
             HomeMenu();
-            DatabaseConnection(DatabaseConnectionInfo());
+            LoginToApp();
         }
 
         // Print UI
@@ -32,7 +32,7 @@ namespace KeyLog_Classic
             string connectionInfo = "";
             MySqlConnection connection = new MySqlConnection();
 
-            Console.WriteLine("To Connect the Database, Please Input");
+            Console.WriteLine("*====Database Info====*");
             Console.Write("Server:> ");
             server = Console.ReadLine();
 
@@ -48,7 +48,7 @@ namespace KeyLog_Classic
                              "database=" + database + ";";
 
             return connectionInfo;
-        } // END DatabaseConnectionInfo();
+        } // END DatabaseConnectionInfo()
 
         // Open Connection with the database
         private static MySqlConnection DatabaseConnection(string inConnectionInfo)
@@ -57,6 +57,55 @@ namespace KeyLog_Classic
             connection.Open();
 
             return connection;
-        }
+        } // END DatabaseConnnection()
+
+        // Verity Identity before using the App
+        private static void LoginToApp()
+        {
+            string username = "", password = "";
+            string dsUsername = "", dsPassword = "";
+
+            Console.WriteLine("*====Login====*");
+            Console.Write("username:> ");
+            username = Console.ReadLine();
+
+            Console.Write("password:> ");
+            password = Console.ReadLine();
+
+            MySqlConnection connection = DatabaseConnection(DatabaseConnectionInfo());
+
+            try
+            {
+                // SQL Command to obtain information
+                MySqlCommand cmdLogin = connection.CreateCommand();
+                cmdLogin.CommandText = "SELECT * FROM admin";
+
+                // Data Adapter to run the command
+                MySqlDataAdapter loginAdapter = new MySqlDataAdapter(cmdLogin);
+                DataSet loginDS = new DataSet();
+
+                loginAdapter.Fill(loginDS);
+
+                dsUsername = loginDS.Tables[0].Rows[0].ItemArray[0].ToString();
+                dsPassword = loginDS.Tables[0].Rows[0].ItemArray[1].ToString();
+
+                if (BCrypt.Net.BCrypt.Verify(username, dsUsername) &&
+                    BCrypt.Net.BCrypt.Verify(password, dsPassword))
+                {
+                    Console.WriteLine("\n------IDENTITY CONFIRMED.");
+                } // END if
+                else
+                {
+                    Console.WriteLine("\n------UNKNOWN IDENTITY.");
+                }
+
+                connection.Close();
+            } // END try
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            } // END catch
+
+        } // END LoginToApp()
     }
 }
