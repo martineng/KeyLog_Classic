@@ -9,7 +9,8 @@ namespace KeyLog_Classic
     {
         public static void Main(string[] args)
         {
-
+            HomeMenu();
+            DatabaseConnection(DatabaseConnectionInfo());
         }
 
         // Print UI
@@ -31,14 +32,14 @@ namespace KeyLog_Classic
             string connectionInfo = "";
             MySqlConnection connection = new MySqlConnection();
 
-            Console.WriteLine("Please Enter ");
-            Console.WriteLine("Server:> ");
+            Console.WriteLine("To Connect the Database, Please Input");
+            Console.Write("Server:> ");
             server = Console.ReadLine();
 
-            Console.WriteLine("Id:> ");
+            Console.Write("Id:> ");
             id = Console.ReadLine();
 
-            Console.WriteLine("Password:> ");
+            Console.Write("Password:> ");
             password = Console.ReadLine();
 
             connectionInfo = "server=" + server + ";" +

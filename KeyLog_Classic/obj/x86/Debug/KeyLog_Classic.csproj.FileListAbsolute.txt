@@ -1,0 +1,13 @@
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/KeyLog_Classic.exe
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/KeyLog_Classic.pdb
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/BCrypt.Net-Next.dll
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/Google.Protobuf.dll
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/MySql.Data.dll
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/BCrypt.Net-Next.xml
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/Google.Protobuf.xml
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/bin/Debug/MySql.Data.xml
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/obj/x86/Debug/KeyLog_Classic.csprojAssemblyReference.cache
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/obj/x86/Debug/KeyLog_Classic.csproj.CoreCompileInputs.cache
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/obj/x86/Debug/KeyLog_Classic.csproj.CopyComplete
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/obj/x86/Debug/KeyLog_Classic.exe
+/Users/martineng/Projects/KeyLog_Classic/KeyLog_Classic/obj/x86/Debug/KeyLog_Classic.pdb
