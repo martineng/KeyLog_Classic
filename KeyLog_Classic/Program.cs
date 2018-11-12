@@ -9,8 +9,14 @@ namespace KeyLog_Classic
     {
         public static void Main(string[] args)
         {
+            Boolean toContinue = true;
+
             HomeMenu();
-            LoginToApp();
+
+            while (toContinue)
+            {
+                toContinue = DecideCotinue(LoginToApp());
+            } // END while
         }
 
         // Print UI
@@ -20,7 +26,6 @@ namespace KeyLog_Classic
             Console.WriteLine("*           KeyLog Classic               *");
             Console.WriteLine("*             Ver. 1.0                   *");
             Console.WriteLine("*========================================*");
-            Console.Write("\n");
         }
 
         // Request Credential for Database Connection
@@ -32,6 +37,7 @@ namespace KeyLog_Classic
             string connectionInfo = "";
             MySqlConnection connection = new MySqlConnection();
 
+            Console.Write("\n");
             Console.WriteLine("*====Database Info====*");
             Console.Write("Server:> ");
             server = Console.ReadLine();
@@ -53,18 +59,30 @@ namespace KeyLog_Classic
         // Open Connection with the database
         private static MySqlConnection DatabaseConnection(string inConnectionInfo)
         {
-            MySqlConnection connection = new MySqlConnection(inConnectionInfo);
-            connection.Open();
+            MySqlConnection connection = new MySqlConnection();
 
+            try
+            {
+                connection = new MySqlConnection(inConnectionInfo);
+                connection.Open();
+            } // END try
+            catch 
+            {
+                // Return null as connection failed.
+                return null;
+            } // END catch
+
+            // return the connection when it success
             return connection;
         } // END DatabaseConnnection()
 
-        // Verity Identity before using the App
-        private static void LoginToApp()
+        // Verity Identity before using the App, return Connection Status
+        private static Boolean LoginToApp()
         {
             string username = "", password = "";
             string dsUsername = "", dsPassword = "";
 
+            Console.Write("\n");
             Console.WriteLine("*====Login====*");
             Console.Write("username:> ");
             username = Console.ReadLine();
@@ -72,10 +90,10 @@ namespace KeyLog_Classic
             Console.Write("password:> ");
             password = Console.ReadLine();
 
-            MySqlConnection connection = DatabaseConnection(DatabaseConnectionInfo());
-
             try
             {
+                MySqlConnection connection = DatabaseConnection(DatabaseConnectionInfo());
+
                 // SQL Command to obtain information
                 MySqlCommand cmdLogin = connection.CreateCommand();
                 cmdLogin.CommandText = "SELECT * FROM admin";
@@ -101,11 +119,43 @@ namespace KeyLog_Classic
 
                 connection.Close();
             } // END try
-            catch (Exception e)
+            catch 
             {
-                Console.WriteLine(e);
+                // return isConnect = false
+                return false;
             } // END catch
 
+            // return isConnect = true
+            return true;
         } // END LoginToApp()
+
+        private static Boolean DecideCotinue(Boolean inIsConnect)
+        {
+            if (inIsConnect == false)
+            {
+                String toContinueString = "";
+
+                Console.WriteLine("Connection Failed.\nTry Again? (Y\\n)");
+                toContinueString = Console.ReadLine();
+
+                // Verify Action
+                if (toContinueString == "Y" || toContinueString == "y")
+                {
+                    // true to try again
+                    return true;
+                }
+                else
+                {
+                    // false to not try again
+                    return false;
+                } // END else
+            } // END if
+            else
+            {
+                // Escape Connection Loop
+                return false;
+            } //END else
+
+        } // END DecideContinue()
     }
 }
