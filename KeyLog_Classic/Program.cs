@@ -2,6 +2,8 @@
 using System.Data;
 using MySql.Data.MySqlClient;
 using BCrypt.Net;
+using System.Text;
+
 
 namespace KeyLog_Classic
 {
@@ -28,7 +30,7 @@ namespace KeyLog_Classic
             Console.WriteLine("*========================================*");
         }
 
-        // Request Credential for Database Connection
+        // Request Credential for Database Connection, Server, ID and Password
         private static string DatabaseConnectionInfo()
         {
             string server = "", id = "", password = "";
@@ -37,16 +39,17 @@ namespace KeyLog_Classic
             string connectionInfo = "";
             MySqlConnection connection = new MySqlConnection();
 
-            Console.Write("\n");
+            Console.WriteLine("\n");
             Console.WriteLine("*====Database Info====*");
+
             Console.Write("Server:> ");
-            server = Console.ReadLine();
+            server = GetHiddenConsoleInput();
 
-            Console.Write("Id:> ");
-            id = Console.ReadLine();
+            Console.Write("\nID:> ");
+            id = GetHiddenConsoleInput();
 
-            Console.Write("Password:> ");
-            password = Console.ReadLine();
+            Console.Write("\nPassword:> ");
+            password = GetHiddenConsoleInput();
 
             connectionInfo = "server=" + server + ";" +
                              "User Id=" + id + ";" +
@@ -85,10 +88,10 @@ namespace KeyLog_Classic
             Console.Write("\n");
             Console.WriteLine("*====Login====*");
             Console.Write("username:> ");
-            username = Console.ReadLine();
+            username = GetHiddenConsoleInput();
 
-            Console.Write("password:> ");
-            password = Console.ReadLine();
+            Console.Write("\npassword:> ");
+            password = GetHiddenConsoleInput();
 
             try
             {
@@ -107,17 +110,18 @@ namespace KeyLog_Classic
                 dsUsername = loginDS.Tables[0].Rows[0].ItemArray[0].ToString();
                 dsPassword = loginDS.Tables[0].Rows[0].ItemArray[1].ToString();
 
+                connection.Close();
+
                 if (BCrypt.Net.BCrypt.Verify(username, dsUsername) &&
                     BCrypt.Net.BCrypt.Verify(password, dsPassword))
                 {
-                    Console.WriteLine("\n------IDENTITY CONFIRMED.");
+                    Console.WriteLine("\n\n------IDENTITY CONFIRMED.");
                 } // END if
                 else
                 {
-                    Console.WriteLine("\n------UNKNOWN IDENTITY.");
+                    Console.WriteLine("\n\n------UNKNOWN IDENTITY.");
+                    return false;
                 }
-
-                connection.Close();
             } // END try
             catch 
             {
@@ -135,7 +139,7 @@ namespace KeyLog_Classic
             {
                 String toContinueString = "";
 
-                Console.WriteLine("Connection Failed.\nTry Again? (Y\\n)");
+                Console.WriteLine("\n\nConnection Failed.\nTry Again? (Y\\n)");
                 toContinueString = Console.ReadLine();
 
                 // Verify Action
@@ -157,5 +161,35 @@ namespace KeyLog_Classic
             } //END else
 
         } // END DecideContinue()
+
+        // Hide the Character of Console Input and get the input
+        private static String GetHiddenConsoleInput()
+        {
+            StringBuilder input = new StringBuilder();
+
+            while (true)
+            {
+                var key = Console.ReadKey(true); // Hide Key Press
+
+                // IF Enter, stop the loop
+                if (key.Key == ConsoleKey.Enter) 
+                {
+                    break;
+                }
+                //IF Backspace and at least 1 char is entered, Delete 1 char
+                if (key.Key == ConsoleKey.Backspace && input.Length > 0) 
+                {
+                    input.Remove(input.Length - 1, 1);
+                }
+                // IF any Key except Backspace is entered
+                else if (key.Key != ConsoleKey.Backspace)
+                {
+                    input.Append(key.KeyChar);
+                }
+            } // END while
+
+            return input.ToString();
+        } // END GetHiddenConsoleInput()
+
     }
 }

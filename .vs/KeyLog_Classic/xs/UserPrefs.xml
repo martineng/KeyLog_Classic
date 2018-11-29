@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{D3B4F6D8-409F-4C04-ABFC-63BC535D5BF7}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="KeyLog_Classic/Program.cs">
     <Files>
-      <File FileName="KeyLog_Classic/Program.cs" Line="78" Column="14" />
+      <File FileName="KeyLog_Classic/Program.cs" Line="52" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
